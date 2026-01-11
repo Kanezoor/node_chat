@@ -67,7 +67,7 @@
       }
     }
 
-    socket.on('roomList', (rooms) => {
+    socket.on('roomsList', (rooms) => {
       const list = document.getElementById('room-list');
       list.innerHTML = '';
 
@@ -79,7 +79,18 @@
           <button onclick="renameRoom('${room}')" style="font-size:0.6em;">rn</button>`;
         list.appendChild(li);
       });
+
+      if (currentRoom && !rooms.includes(currentRoom)) {
+        alert(`The room "${currentRoom}" has been deleted or renamed.`);
+        leaveCurrentRoom();
+      }
     });
+
+    function leaveCurrentRoom() {
+      currentRoom = null;
+      document.getElementById('current-room-name').innerText = 'Select a Room';
+      document.getElementById('messages').innerHTML = '';
+    }
 
     function createRoom() {
       const name = document.getElementById('new-room-input').value;

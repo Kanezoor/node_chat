@@ -19,7 +19,7 @@ io.on('connection', (socket) => {
   // eslint-disable-next-line no-console
   console.log('A user connected: ', socket.id);
 
-  socket.emit('roomList', Object.keys(rooms));
+  socket.emit('roomsList', Object.keys(rooms));
 
   socket.on('joinRoom', (roomName) => {
     const currentRooms = Array.from(socket.rooms);
@@ -57,14 +57,14 @@ io.on('connection', (socket) => {
   socket.on('createRoom', (roomName) => {
     if (!rooms[roomName]) {
       rooms[roomName] = [];
-      io.emit('roomList', Object.keys(rooms));
+      io.emit('roomsList', Object.keys(rooms));
     }
   });
 
   socket.on('deleteRoom', (roomName) => {
     if (rooms[roomName]) {
       delete rooms[roomName];
-      io.emit('roomList', Object.keys(rooms));
+      io.emit('roomsList', Object.keys(rooms));
     }
   });
 
